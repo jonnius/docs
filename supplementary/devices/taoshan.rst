@@ -87,6 +87,10 @@ After flashing hybris-boot, recovery can not be accessed anymore. Therefore foll
 - Enter Fastboot
 - Flash hybris-boot image to boot partition using fastboot
 
+If TWRP is not displayed, but you can access the recovery via adb, you can mount data partition from command line::
+   
+   adb shell
+   mount /dev/block/mmcblk0p31 /data
 
 Usefull Resources
 ^^^^^^^^^^^^^^^^^^
