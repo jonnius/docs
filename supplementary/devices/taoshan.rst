@@ -9,7 +9,7 @@ Status
 
 Halium
 ^^^^^^
-A port for Halium 7.1 is being worked on by `Jonatan Hatakeyama Zeidler <https://github.com/jonnius>`_. Halium 7.1 builds, but does not install using `halium-install <https://github.com/Halium/halium-scripts/>`_ due to TWRP BusyBox issues. Using `halium-install from JBB <https://github.com/JBBgameich/halium-install>`_ the halium reference rootfs can be installed, but it does not seem to start.
+A port for Halium 7.1 is being worked on by `Jonatan Hatakeyama Zeidler <https://github.com/jonnius>`_. Halium 7.1 builds, but does not install using `halium-install <https://github.com/Halium/halium-scripts/>`_ due to TWRP BusyBox issues. Using `halium-install from JBB <https://github.com/JBBgameich/halium-install>`_ the halium reference rootfs can be installed, but it does not seem to start. Using halium-boot instead of hybris-boot the device has once been reached via telnet. But could not have been reproduced, yet.
 
 Distributions
 ^^^^^^^^^^^^^
@@ -74,24 +74,26 @@ Special boot modes
 Developer Info
 ^^^^^^^^^^^^^^
 
-After flashing hybris-boot, recovery can not be accessed anymore. Therefore follow these steps to install halium rootfs:
+After flashing halium-boot/hybris-boot, recovery can not be accessed any more, because on Sony devices the boot image has to start the recovery image. Therefore follow these steps to install halium rootfs:
 
-- Enter Fastboot
-- Flash `TWRP image <https://dl.TWRP.me/taoshan/>`_ to recovery and boot partition
-- Reboot into TWRP on boot
-- From TWRP reboot into Recovery
-- In TWRP mount data partition
+Preparation:
+
 - Clone `halium-install from JBB <https://github.com/JBBgameich/halium-install>`_ (the official one does not work)
-- Edit functions/core.sh and change rootfs size to 1G (data partition has only 1.6 GB)
-- Run halium-install with halium rootfs image and system.img
-- Enter Fastboot
-- Flash hybris-boot image to boot partition using fastboot
+- Edit ``functions/core.sh`` and change rootfs size to ``1G`` (data partition has only 1.6 GB)
 
-If TWRP is not displayed, but you can access the recovery via adb, you can mount data partition from command line::
-   
-   adb shell
-   mount /dev/block/mmcblk0p31 /data
+Installation:
+
+- Install twrp on recovery following the `instructions from LineageOS <https://wiki.lineageos.org/devices/taoshan/install#installing-a-custom-recovery-using-fastboot>`_
+- Reboot into Recovery: ``adb reboot recovery``
+- Mount data partition via twrp menu or: ``adb shell mount /dev/block/mmcblk0p31 /data``
+- Run: ``./halium-install path/to/halium-rootfs path/to/system.img``
+- Enter Fastboot: ``adb reboot bootloader``
+- Flash halium-boot/hybris-boot: ``fastboot flash boot path/to/halium-boot.img``
+
 
 Usefull Resources
 ^^^^^^^^^^^^^^^^^^
 - `halium-install from JBB <https://github.com/JBBgameich/halium-install>`_
+- `How to install LineageOS on taoshan <https://wiki.lineageos.org/devices/taoshan/install#installing-lineageos-from-recovery>`_
+- `Info about taoshan <https://wiki.lineageos.org/devices/taoshan/>`_
+- `TWRP for taoshan <https://twrp.me/sony/sonyxperial.html>`_
