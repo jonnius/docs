@@ -5,8 +5,8 @@ Get Halium source
 Now that you have a target device selected and your build device ready, it's time to get the sources for your target together. Let's begin by initializing your source tree.
 
 
-Create and initialize source tree
----------------------------------
+Initialize and download source tree
+------------------------------------
 
 Make yourself a new directory to put your Halium source in::
 
@@ -26,11 +26,15 @@ If your device does not have Android 7.1 or LineageOS 14.1 support but has suppo
 
 ``halium-5.1`` is based on CyanogenMod 12.1
 
+Now that you have initialized the Halium tree, you can sync all repositories included in it. This will probably take a while as it downloads several GBs::
+
+   repo sync -c
+
 
 Adding your device-specific source
 ----------------------------------
 
-Okay, so now you have the default manifest for Ubuntu Touch. This will enable you to download the basic Android sources used to build Ubuntu Touch, but you'll need to find device-specific files. These enable the build system to make Android for your device.
+Okay, so now you have the default manifest for Halium. This will enable you to download the basic Android sources used to build Halium, but you'll need to find device-specific files. These enable the build system to make Android for your device.
 
 If there's any part for you to make a mistake on, this will be the one. Finding the files isn't hard, but it might take you a couple of tries to get repo's local manifest created correctly.
 
@@ -38,7 +42,7 @@ First, you'll want to find the repositories for your device on `LineageOS's GitH
 
 There will be a ``cm.dependencies`` or ``lineage.dependencies`` file in that repository that will tell you all of the other repositories that your device is reliant upon. Keep this file around as you will need it in a little bit.
 
-Change into your Halium directory and create the directory ``.repo/local_manifests/``. Then, edit the file ``.repo/local_manifests/[manufacturer]_[device].xml``.
+Navigate into your Halium directory and create the file ``halium/devices/manifests/[manufacturer]_[device].xml``.
 
 Paste the following into the file:
 
@@ -149,17 +153,17 @@ If you do not specify a remote, ``phablet`` is assumed.
 Sync
 ----
 
-Now that you've got your manifest filled out, simply type the following to get all of your source::
+Now that you've got your manifest filled out, simply type the following to get all of your source (replace DEVICE with your device's codename)::
 
-    repo sync -c
+    ./halium/devices/setup DEVICE
 
-This will take a while as it will download up to 25GB of sources. If you have a fast computer and connection, you may add an extra ``-j[number]`` flag to make more parallel downloading jobs. We generally recommend ``-j10``, but 6 is the default.
+This will first link your manifest from Halium devices to ``.repo/local_manifests/device.xml`` and then sync all repositories. This can take a while as it will download up to 2 GB of sources. If you have a fast connection, you may set an extra ``JOBS=[number]`` environment variable at the beginning of the command to make more parallel downloading jobs. We generally recommend 12, which is the default.
 
 
 Document
 --------
 
-After following these steps, create an issue on the `Halium project management repository <https://github.com/Halium/projectmanagement>`_ to document your manifest and your porting progress.
+After following these steps, create an issue on the `Halium project management repository <https://github.com/Halium/projectmanagement/issues/new?template=device-port.md>`_ to document your porting progress. Also create a pull request containing your manifest on the `Halium devices repository <https://github.com/Halium/halium-devices>`_. You should link the manifest on Halium devices in your project management issue. Alternatively you can also use a link to the pull request, if the manifest was not merged already.
 
 
 Next steps
