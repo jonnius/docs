@@ -50,12 +50,12 @@ Set up your build device
 
 Now you will need to install packages on the computer you wish to build Halium with.
 
-Debian (Stretch or newer) / Ubuntu (16.04 or newer)
+Debian (Stretch or newer) / Ubuntu (16.04 or 18.04)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you are on the ``amd64`` architecture (commonly referred to as 64 bit), enable the usage of the ``i386`` architecture::
 
-   sudo dpkg --add-architecture i386
+    sudo dpkg --add-architecture i386
 
 Update your package lists to take advantage of the new architecture::
 
@@ -63,12 +63,39 @@ Update your package lists to take advantage of the new architecture::
 
 Install the required dependencies::
 
-   sudo apt install git gnupg flex bison gperf build-essential \
-     zip bzr curl libc6-dev libncurses5-dev:i386 x11proto-core-dev \
-     libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-glx:i386 \
-     libgl1-mesa-dev g++-multilib mingw-w64-i686-dev tofrodos \
-     python-markdown libxml2-utils xsltproc zlib1g-dev:i386 schedtool \
-     repo liblz4-tool bc lzop imagemagick libncurses5 rsync
+    sudo apt install git gnupg flex bison gperf build-essential \
+      zip bzr curl libc6-dev libncurses5-dev:i386 x11proto-core-dev \
+      libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-glx:i386 \
+      libgl1-mesa-dev g++-multilib mingw-w64-i686-dev tofrodos \
+      python-markdown libxml2-utils xsltproc zlib1g-dev:i386 schedtool \
+      repo liblz4-tool bc lzop imagemagick libncurses5 rsync
+
+Ubuntu (20.04 or newer)
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If you are on the ``amd64`` architecture (commonly referred to as 64 bit), enable the usage of the ``i386`` architecture::
+
+    sudo dpkg --add-architecture i386
+
+Update your package lists to take advantage of the new architecture::
+
+    sudo apt update
+
+Install the required dependencies::
+
+    sudo apt install git gnupg flex bison gperf build-essential \
+      zip bzr curl libc6-dev libncurses5-dev:i386 x11proto-core-dev \
+      libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-glx:i386 \
+      libgl1-mesa-dev g++-multilib mingw-w64-i686-dev tofrodos \
+      python-markdown libxml2-utils xsltproc zlib1g-dev:i386 schedtool \
+      liblz4-tool bc lzop imagemagick libncurses5 rsync \
+      python-is-python3
+
+Install ``repo``::
+
+    curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.local/bin/repo
+    chmod a+rx ~/.local/bin/repo
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 
 Arch
 ^^^^
