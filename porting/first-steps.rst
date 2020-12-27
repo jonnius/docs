@@ -48,7 +48,7 @@ Head over to :doc:`/supplementary/how-to-document` to learn about adding your de
 Set up your build device
 ------------------------
 
-Now you will need to install packages on the computer you wish to build Halium with.
+Now you will need to install packages on the computer you wish to build Halium with. Make sure to have Python 3.7 or higher installed.
 
 Debian (Stretch or newer) / Ubuntu (16.04 or 18.04)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
